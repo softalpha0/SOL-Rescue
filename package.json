@@ -8,7 +8,8 @@
     "build": "node scripts/build.mjs",
     "test:unit": "pnpm build && node --test --experimental-strip-types test/*.test.ts",
     "build:web": "node scripts/build-web.mjs",
-    "web": "node scripts/build-web.mjs && node scripts/serve-web.mjs"
+    "web": "node scripts/build-web.mjs && node scripts/serve-web.mjs",
+    "build:vercel": "node scripts/build-vercel.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.32.1",

@@ -1,0 +1,24 @@
+{
+  "name": "sol-rescue",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "node scripts/build.mjs",
+    "test:unit": "pnpm build && node --test --experimental-strip-types test/*.test.ts",
+    "build:web": "node scripts/build-web.mjs",
+    "web": "node scripts/build-web.mjs && node scripts/serve-web.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.1",
+    "@solana/web3.js": "1.99.0",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "buffer": "6.0.3",
+    "esbuild": "0.28.2",
+    "typescript": "5.9.3"
+  }
+}

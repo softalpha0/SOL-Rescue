@@ -50,6 +50,7 @@ function wallets(): { name: string; provider: WalletProvider }[] {
   return found;
 }
 
+// Default: the local server's /rpc forwarder (the public RPC rejects browser requests).
 function rpcUrl(): string {
   return ($<HTMLInputElement>("rpc").value || `${location.origin}/rpc`).trim();
 }
@@ -76,6 +77,16 @@ function renderWalletPicker() {
   const box = $("wallet-picker");
   box.innerHTML = "";
   if (list.length === 0) {
+    // Mobile browsers cannot run wallet extensions; reopen the page in the wallet app's browser.
+    if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+      const here = encodeURIComponent(location.href);
+      const ref = encodeURIComponent(location.origin);
+      box.innerHTML =
+        '<p class="muted">On a phone, open this page inside your wallet app:</p>' +
+        `<a class="btn" id="open-phantom" href="https://phantom.app/ul/browse/${here}?ref=${ref}">Open in Phantom</a>` +
+        `<a class="btn secondary" id="open-solflare" href="https://solflare.com/ul/v1/browse/${here}?ref=${ref}">Open in Solflare</a>`;
+      return;
+    }
     box.innerHTML =
       '<p class="muted">No Solana wallet extension found. Install <a href="https://phantom.app" target="_blank" rel="noopener">Phantom</a> or <a href="https://solflare.com" target="_blank" rel="noopener">Solflare</a>, then reload this page.</p>';
     return;
